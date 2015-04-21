@@ -6,17 +6,17 @@ public class DataRetrievalLayer
 {
 	final static int dataLength = 44449;
 	
-	ArrayList<ArrayList<Double>> data;
-	ArrayList<ArrayList<Double>> stats;
+	static ArrayList<ArrayList<Double>> data;
+	static ArrayList<ArrayList<Double>> stats;
 	
-	DataRetrievalLayer()
+	static
 	{	
 		// Read the data in
 		data = ReadData("Data/data.txt", dataLength);
 		stats = ReadData("Data/stats.txt", 4);
 	}
 	
-	private ArrayList<ArrayList<Double>> ReadData(String fileName, int rows)
+	private static ArrayList<ArrayList<Double>> ReadData(String fileName, int rows)
 	{
 		ArrayList<ArrayList<Double>> tempData;
 		File file = new File(fileName);
@@ -70,7 +70,7 @@ public class DataRetrievalLayer
 		return tempData;
 	}
 	
-	public ArrayList<ArrayList<Double>> GetData()
+	public static ArrayList<ArrayList<Double>> GetData()
 	{
 		return data;
 	}
@@ -78,6 +78,26 @@ public class DataRetrievalLayer
 	public ArrayList<ArrayList<Double>> GetStats()
 	{
 		return stats;
+	}
+
+	public static double GetActiveMeanVector() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static double GetNonActiveMeanVector() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static double GetActiveSTD() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static double GetNonActiveSTD() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	/*

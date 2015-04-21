@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ClassificationMethods {
     private static double activeClassifiedAsActive;
@@ -216,7 +217,7 @@ public class ClassificationMethods {
         data = DataRetrievalLayer.GetData();
 
         activeData = (ArrayList<ArrayList<Double>>) data.subList(0, 1347);
-        nonActiveData = (ArrayList<ArrayList<Double>>) data.subList(1347, DataRetrievelLayer.dataLength);
+        nonActiveData = (ArrayList<ArrayList<Double>>) data.subList(1347, DataRetrievalLayer.dataLength);
 
         activeMeanVector = DataRetrievalLayer.GetActiveMeanVector();
         nonActiveMeanVector = DataRetrievalLayer.GetNonActiveMeanVector();

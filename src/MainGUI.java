@@ -4,24 +4,37 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JRadioButton;
+
 import java.awt.GridBagConstraints;
+
 import javax.swing.ButtonGroup;
+
 import java.awt.Insets;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class MainGUI extends JFrame {
 
 	private JPanel mainPanel;
 	private final ButtonGroup methodTypeButtonGroup = new ButtonGroup();
+	private JRadioButton[] radioButtons = new JRadioButton[5];
 
 	/**
 	 * Launch the application.
@@ -79,6 +92,7 @@ public class MainGUI extends JFrame {
 		gbc_euclidianDistanceRadioButton.gridy = 0;
 		radioButtonPanel.add(euclidianDistanceRadioButton, gbc_euclidianDistanceRadioButton);
 		methodTypeButtonGroup.add(euclidianDistanceRadioButton);
+		this.radioButtons[0] = euclidianDistanceRadioButton;
 		
 		JRadioButton mahalanokianDistanceRadioButton = new JRadioButton("Mahalanokian Distance ");
 		GridBagConstraints gbc_mahalanokianDistanceRadioButton = new GridBagConstraints();
@@ -88,6 +102,7 @@ public class MainGUI extends JFrame {
 		gbc_mahalanokianDistanceRadioButton.gridy = 1;
 		radioButtonPanel.add(mahalanokianDistanceRadioButton, gbc_mahalanokianDistanceRadioButton);
 		methodTypeButtonGroup.add(mahalanokianDistanceRadioButton);
+		this.radioButtons[1] = mahalanokianDistanceRadioButton;
 		
 		JRadioButton euclidianVotingRadioButton = new JRadioButton("Euclidian Voting");
 		GridBagConstraints gbc_euclidianVotingRadioButton = new GridBagConstraints();
@@ -97,6 +112,7 @@ public class MainGUI extends JFrame {
 		gbc_euclidianVotingRadioButton.gridy = 2;
 		radioButtonPanel.add(euclidianVotingRadioButton, gbc_euclidianVotingRadioButton);
 		methodTypeButtonGroup.add(euclidianVotingRadioButton);
+		this.radioButtons[2] = euclidianVotingRadioButton;
 		
 		JRadioButton mahalanokianVotingRadioButton = new JRadioButton("Mahalanokian Voting");
 		GridBagConstraints gbc_mahalanokianVotingRadioButton = new GridBagConstraints();
@@ -106,6 +122,7 @@ public class MainGUI extends JFrame {
 		gbc_mahalanokianVotingRadioButton.gridy = 3;
 		radioButtonPanel.add(mahalanokianVotingRadioButton, gbc_mahalanokianVotingRadioButton);
 		methodTypeButtonGroup.add(mahalanokianVotingRadioButton);
+		this.radioButtons[3] = mahalanokianVotingRadioButton;
 		
 		JRadioButton customMethodRadioButton = new JRadioButton("Custom Method");
 		methodTypeButtonGroup.add(customMethodRadioButton);
@@ -115,8 +132,9 @@ public class MainGUI extends JFrame {
 		gbc_customMethodRadioButton.gridx = 0;
 		gbc_customMethodRadioButton.gridy = 4;
 		radioButtonPanel.add(customMethodRadioButton, gbc_customMethodRadioButton);
+		this.radioButtons[4] = customMethodRadioButton;
 		
-		JPanel graphPanel = new GraphPanel();
+		final JPanel graphPanel = new GraphPanel();
 		graphPanel.setBorder(new TitledBorder(null, "Ratio (AA/AN)", TitledBorder.LEADING, TitledBorder.TOP, null, Color.LIGHT_GRAY));
 		GridBagConstraints gbc_graphPanel = new GridBagConstraints();
 		gbc_graphPanel.insets = new Insets(0, 0, 5, 0);
@@ -127,11 +145,41 @@ public class MainGUI extends JFrame {
 		mainPanel.add(graphPanel, gbc_graphPanel);
 		
 		JButton calculateButton = new JButton("Calculate");
+		calculateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int radioButtonSelected = getRadioButtonSelected();
+				double ratio=0;
+				switch(radioButtonSelected) {
+				case 0:
+					ratio = ClassificationMethods.EuclidianDistanceMethod();
+					break;
+				case 1:
+					ratio = ClassificationMethods.MahalanokiDistanceMethod();
+					break;
+				case 2:
+					ratio = ClassificationMethods.EuclidianVotingMethod();
+					break;
+				case 3:
+					ratio = ClassificationMethods.MahalanokiVotingMethod();
+					break;
+				}
+				if(ratio!=0)
+					((GraphPanel) graphPanel).setGraphPoint(radioButtonSelected, ratio);
+			}
+		});
 		GridBagConstraints gbc_calculateButton = new GridBagConstraints();
 		gbc_calculateButton.insets = new Insets(0, 0, 5, 5);
 		gbc_calculateButton.gridx = 0;
 		gbc_calculateButton.gridy = 1;
 		mainPanel.add(calculateButton, gbc_calculateButton);
+	}
+
+	protected int getRadioButtonSelected() {
+		for(int i=0;i<this.radioButtons.length;i++) {
+			if(this.radioButtons[i].isSelected())
+				return i;
+		}
+		return -1;
 	}
 
 }

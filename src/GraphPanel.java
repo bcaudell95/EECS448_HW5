@@ -11,6 +11,7 @@ public class GraphPanel extends JPanel {
 	private static final String[] X_AXIS_LABELS = {"E D", "M D", "E V", "M V", "Custom"};
 	private static final int[] Y_TICK_MARK_POS = {PREF_H/6, 5*PREF_H/6};
 	private static final String[] Y_AXIS_LABELS = {"1", "0"};
+	private static double[] ratios = {0.0,0.0,0.0,0.0,0.0};
 	
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -42,5 +43,22 @@ public class GraphPanel extends JPanel {
 			g.drawLine(x-5,y,x+5,y);
 			g.drawChars(label.toCharArray(), 0, label.length(), x-15, y+5);
 		}
+		
+		//draw points (if necessary)
+		for(int i=0;i<this.ratios.length;i++) {
+			if(ratios[i]>0) {
+				x = this.X_TICK_MARK_POS[i];
+				y = (int) (Y_TICK_MARK_POS[1] - ((Y_TICK_MARK_POS[1]-Y_TICK_MARK_POS[0])*this.ratios[i]));
+				g.drawLine(x-5,y-5,x+5,y+5);
+				g.drawLine(x-5, y+5, x+5, y-5);
+			}
+		}
+	}
+	
+	public void setGraphPoint(int col, double ratio) {
+		if(col>=0 && col<3) {
+			this.ratios[col] = ratio;
+		}
+		this.repaint();
 	}
 }
