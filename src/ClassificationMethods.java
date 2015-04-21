@@ -94,7 +94,55 @@ public class ClassificationMethods {
     public static double EuclidianVotingMethod() {
         getData();
 
+        for(ArrayList<Double> singleData : activeData) {
+            double activeVote = 0;
+            double nonActiveVote = 0;
 
+            double activeDistance = 0;
+            double nonActiveDistance = 0;
+
+            for(Double cell : singleData) {
+                activeDistance = Math.abs(cell - activeMeanVector);
+                nonActiveDistance = Math.abs(cell - nonActiveMeanVector);
+
+                if(activeDistance < nonActiveDistance) {
+                    activeVote++;
+                } else {
+                    nonActiveVote++;
+                }
+            }
+
+            if(activeVote < nonActiveVote) {
+                activeClassifiedAsActive++;
+            } else {
+                activeClassifiedAsNonActive++;
+            }
+        }
+
+        for(ArrayList<Double> singleData : nonActiveData) {
+            double activeVote = 0;
+            double nonActiveVote = 0;
+
+            double activeDistance = 0;
+            double nonActiveDistance = 0;
+
+            for(Double cell : singleData) {
+                activeDistance = Math.abs(cell - activeMeanVector);
+                nonActiveDistance = Math.abs(cell - nonActiveMeanVector);
+
+                if(activeDistance < nonActiveDistance) {
+                    activeVote++;
+                } else {
+                    nonActiveVote++;
+                }
+            }
+
+            if(activeVote < nonActiveVote) {
+                activeClassifiedAsActive++;
+            } else {
+                activeClassifiedAsNonActive++;
+            }
+        }
 
         return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
@@ -102,7 +150,55 @@ public class ClassificationMethods {
     public static double MahalanokiVotingMethod() {
         getData();
 
+        for(ArrayList<Double> singleData : activeData) {
+            double activeVote = 0;
+            double nonActiveVote = 0;
 
+            double activeDistance = 0;
+            double nonActiveDistance = 0;
+
+            for(Double cell : singleData) {
+                activeDistance = (Math.abs(cell - activeMeanVector)) / activeSTD;
+                nonActiveDistance = (Math.abs(cell - nonActiveMeanVector)) / nonActiveSTD;
+
+                if(activeDistance < nonActiveDistance) {
+                    activeVote++;
+                } else {
+                    nonActiveVote++;
+                }
+            }
+
+            if(activeVote < nonActiveVote) {
+                activeClassifiedAsActive++;
+            } else {
+                activeClassifiedAsNonActive++;
+            }
+        }
+
+        for(ArrayList<Double> singleData : nonActiveData) {
+            double activeVote = 0;
+            double nonActiveVote = 0;
+
+            double activeDistance = 0;
+            double nonActiveDistance = 0;
+
+            for(Double cell : singleData) {
+                activeDistance = (Math.abs(cell - activeMeanVector)) / activeSTD;
+                nonActiveDistance = (Math.abs(cell - nonActiveMeanVector)) / nonActiveSTD;
+
+                if(activeDistance < nonActiveDistance) {
+                    activeVote++;
+                } else {
+                    nonActiveVote++;
+                }
+            }
+
+            if(activeVote < nonActiveVote) {
+                activeClassifiedAsActive++;
+            } else {
+                activeClassifiedAsNonActive++;
+            }
+        }
 
         return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
