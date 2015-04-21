@@ -50,7 +50,7 @@ public class ClassificationMethods {
             }
         }
 
-        return (activeClassifiedAsActive / activeClassifiedAsNonActive);
+        return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
 
     public static double MahalanokiDistanceMethod() {
@@ -88,7 +88,7 @@ public class ClassificationMethods {
             }
         }
 
-        return (activeClassifiedAsActive / activeClassifiedAsNonActive);
+        return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
 
     public static double EuclidianVotingMethod() {
@@ -96,7 +96,7 @@ public class ClassificationMethods {
 
 
 
-        return (activeClassifiedAsActive / activeClassifiedAsNonActive);
+        return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
 
     public static double MahalanokiVotingMethod() {
@@ -104,7 +104,7 @@ public class ClassificationMethods {
 
 
 
-        return (activeClassifiedAsActive / activeClassifiedAsNonActive);
+        return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
 
     public static double CustomMethod() {
@@ -112,7 +112,7 @@ public class ClassificationMethods {
 
 
 
-        return (activeClassifiedAsActive / activeClassifiedAsNonActive);
+        return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
 
     //retrieve data from the data retrieval layer (txt files)
