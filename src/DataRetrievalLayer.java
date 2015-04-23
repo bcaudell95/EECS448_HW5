@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DataRetrievalLayer 
 {
-	final static int dataLength = 44449;
+	final static int dataLength = 43347;
 	
 	static ArrayList<ArrayList<Double>> data;
 	static ArrayList<ArrayList<Double>> stats;

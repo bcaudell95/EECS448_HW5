@@ -11,21 +11,25 @@ public class ClassificationMethods {
     private static ArrayList<ArrayList<Double>> activeData = new ArrayList<ArrayList<Double>>();
     private static ArrayList<ArrayList<Double>> nonActiveData = new ArrayList<ArrayList<Double>>();
 
-    private static double activeMeanVector;
-    private static double nonActiveMeanVector;
-    private static double activeSTD;
-    private static double nonActiveSTD;
+    private static ArrayList<Double> activeMeanVector;
+    private static ArrayList<Double> nonActiveMeanVector;
+    private static ArrayList<Double> activeSTD;
+    private static ArrayList<Double> nonActiveSTD;
+
+    static {
+        getData();
+    }
 
     public static double EuclidianDistanceMethod() {
-        getData();
+        resetCounters();
 
         for(ArrayList<Double> singleData : activeData) {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance += Math.pow(cell - activeMeanVector, 2);
-                nonActiveDistance += Math.pow(cell - nonActiveMeanVector, 2);
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance += Math.pow(singleData.get(i) - activeMeanVector.get(i), 2);
+                nonActiveDistance += Math.pow(singleData.get(i) - nonActiveMeanVector.get(i), 2);
             }
 
             if(activeDistance < nonActiveDistance) {
@@ -39,9 +43,9 @@ public class ClassificationMethods {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance += Math.pow(cell - activeMeanVector, 2);
-                nonActiveDistance += Math.pow(cell - nonActiveMeanVector, 2);
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance += Math.pow(singleData.get(i) - activeMeanVector.get(i), 2);
+                nonActiveDistance += Math.pow(singleData.get(i) - nonActiveMeanVector.get(i), 2);
             }
 
             if(activeDistance < nonActiveDistance) {
@@ -55,15 +59,15 @@ public class ClassificationMethods {
     }
 
     public static double MahalanokiDistanceMethod() {
-        getData();
+        resetCounters();
 
         for(ArrayList<Double> singleData : activeData) {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance += Math.pow(cell - activeMeanVector, 2);
-                nonActiveDistance += Math.pow(cell - nonActiveMeanVector, 2);
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance += Math.pow(singleData.get(i) - activeMeanVector.get(i), 2);
+                nonActiveDistance += Math.pow(singleData.get(i) - nonActiveMeanVector.get(i), 2);
             }
 
             if(activeDistance < nonActiveDistance) {
@@ -77,9 +81,9 @@ public class ClassificationMethods {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance += Math.pow((cell - activeMeanVector) / activeSTD, 2);
-                nonActiveDistance += Math.pow((cell - nonActiveMeanVector) / nonActiveSTD, 2);
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance += Math.pow((singleData.get(i) - activeMeanVector.get(i)) / activeSTD.get(i), 2);
+                nonActiveDistance += Math.pow((singleData.get(i) - nonActiveMeanVector.get(i)) / nonActiveSTD.get(i), 2);
             }
 
             if(activeDistance < nonActiveDistance) {
@@ -93,7 +97,7 @@ public class ClassificationMethods {
     }
 
     public static double EuclidianVotingMethod() {
-        getData();
+        resetCounters();
 
         for(ArrayList<Double> singleData : activeData) {
             double activeVote = 0;
@@ -102,9 +106,9 @@ public class ClassificationMethods {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance = Math.abs(cell - activeMeanVector);
-                nonActiveDistance = Math.abs(cell - nonActiveMeanVector);
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance = Math.abs(singleData.get(i) - activeMeanVector.get(i));
+                nonActiveDistance = Math.abs(singleData.get(i) - nonActiveMeanVector.get(i));
 
                 if(activeDistance < nonActiveDistance) {
                     activeVote++;
@@ -127,9 +131,9 @@ public class ClassificationMethods {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance = Math.abs(cell - activeMeanVector);
-                nonActiveDistance = Math.abs(cell - nonActiveMeanVector);
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance = Math.abs(singleData.get(i) - activeMeanVector.get(i));
+                nonActiveDistance = Math.abs(singleData.get(i) - nonActiveMeanVector.get(i));
 
                 if(activeDistance < nonActiveDistance) {
                     activeVote++;
@@ -139,9 +143,9 @@ public class ClassificationMethods {
             }
 
             if(activeVote < nonActiveVote) {
-                activeClassifiedAsActive++;
+                nonActiveClassifiedAsActive++;
             } else {
-                activeClassifiedAsNonActive++;
+                nonActiveClassifiedAsNonActive++;
             }
         }
 
@@ -149,7 +153,7 @@ public class ClassificationMethods {
     }
 
     public static double MahalanokiVotingMethod() {
-        getData();
+        resetCounters();
 
         for(ArrayList<Double> singleData : activeData) {
             double activeVote = 0;
@@ -158,9 +162,9 @@ public class ClassificationMethods {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance = (Math.abs(cell - activeMeanVector)) / activeSTD;
-                nonActiveDistance = (Math.abs(cell - nonActiveMeanVector)) / nonActiveSTD;
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance = (Math.abs(singleData.get(i) - activeMeanVector.get(i))) / activeSTD.get(i);
+                nonActiveDistance = (Math.abs(singleData.get(i) - nonActiveMeanVector.get(i))) / nonActiveSTD.get(i);
 
                 if(activeDistance < nonActiveDistance) {
                     activeVote++;
@@ -183,9 +187,9 @@ public class ClassificationMethods {
             double activeDistance = 0;
             double nonActiveDistance = 0;
 
-            for(Double cell : singleData) {
-                activeDistance = (Math.abs(cell - activeMeanVector)) / activeSTD;
-                nonActiveDistance = (Math.abs(cell - nonActiveMeanVector)) / nonActiveSTD;
+            for(int i = 0; i < singleData.size(); i++) {
+                activeDistance = (Math.abs(singleData.get(i) - activeMeanVector.get(i))) / activeSTD.get(i);
+                nonActiveDistance = (Math.abs(singleData.get(i) - nonActiveMeanVector.get(i))) / nonActiveSTD.get(i);
 
                 if(activeDistance < nonActiveDistance) {
                     activeVote++;
@@ -195,9 +199,9 @@ public class ClassificationMethods {
             }
 
             if(activeVote < nonActiveVote) {
-                activeClassifiedAsActive++;
+                nonActiveClassifiedAsActive++;
             } else {
-                activeClassifiedAsNonActive++;
+                nonActiveClassifiedAsNonActive++;
             }
         }
 
@@ -205,9 +209,7 @@ public class ClassificationMethods {
     }
 
     public static double CustomMethod() {
-        getData();
-
-
+        resetCounters();
 
         return (activeClassifiedAsActive / nonActiveClassifiedAsActive);
     }
@@ -219,9 +221,16 @@ public class ClassificationMethods {
         activeData = new ArrayList<ArrayList<Double>>(data.subList(0, 1347));
         nonActiveData = new ArrayList<ArrayList<Double>>(data.subList(1347, DataRetrievalLayer.dataLength));
 
-        activeMeanVector = DataRetrievalLayer.GetActiveMeanVector();
-        nonActiveMeanVector = DataRetrievalLayer.GetNonActiveMeanVector();
-        activeSTD = DataRetrievalLayer.GetActiveSTD();
-        nonActiveSTD = DataRetrievalLayer.GetNonActiveSTD();
+        activeMeanVector = DataRetrievalLayer.GetData().get(0);
+        nonActiveMeanVector = DataRetrievalLayer.GetData().get(1);
+        activeSTD = DataRetrievalLayer.GetData().get(2);
+        nonActiveSTD = DataRetrievalLayer.GetData().get(3);
+    }
+
+    private static void resetCounters() {
+        activeClassifiedAsActive = 0;
+        activeClassifiedAsNonActive = 0;
+        nonActiveClassifiedAsActive = 0;
+        nonActiveClassifiedAsNonActive = 0;
     }
 }
