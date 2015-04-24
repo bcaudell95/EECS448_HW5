@@ -162,6 +162,9 @@ public class MainGUI extends JFrame {
 				case 3:
 					ratio = ClassificationMethods.MahalanokiVotingMethod();
 					break;
+                case 4:
+                    ratio = ClassificationMethods.CustomMethod();
+                    break;
 				}
 				if(ratio!=0)
 					((GraphPanel) graphPanel).setGraphPoint(radioButtonSelected, ratio);

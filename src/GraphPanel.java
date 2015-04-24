@@ -56,7 +56,7 @@ public class GraphPanel extends JPanel {
 	}
 	
 	public void setGraphPoint(int col, double ratio) {
-		if(col>=0 && col<4) {
+		if(col>=0 && col<5) {
 			this.ratios[col] = ratio;
 		}
 		this.repaint();
